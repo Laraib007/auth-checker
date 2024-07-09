@@ -1,8 +1,16 @@
 import Link from "next/link";
+import { useRef } from "react";
 
 
 export default function Form({ signin, onFormSubmit }) {
- 
+  const emailRef = useRef()
+  const passwordRef = useRef()
+ const onSubmitHandler=(e) =>{
+  const email = emailRef.current.value
+  const password = passwordRef.current.value
+e.preventDefault()
+onFormSubmit(email, password)
+ }
   
   return (
     <>
@@ -14,7 +22,7 @@ export default function Form({ signin, onFormSubmit }) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" >
+          <form className="space-y-6" onSubmit={onSubmitHandler}>
             <div>
               <label
                 htmlFor="email"
@@ -27,7 +35,7 @@ export default function Form({ signin, onFormSubmit }) {
                   id="email"
                   name="email"
                   type="email"
-                  
+                  ref={emailRef}
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -49,7 +57,7 @@ export default function Form({ signin, onFormSubmit }) {
                   id="password"
                   name="password"
                   type="password"
-                  
+                  ref={passwordRef}
                   autoComplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
